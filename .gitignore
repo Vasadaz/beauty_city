@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# IDEA
+.idea/
+
+#beauty_city ignore
+media/
+collected_static/
