@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>{% load static %}
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -8,9 +8,9 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
     {% block additional_link %}{% endblock %}
-	<link rel="stylesheet" href="css/bootstrap-grid.min.css">
+	<link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
     {% block add_script_link %}{% endblock %}
-	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
 	<section id="mobMenu">
