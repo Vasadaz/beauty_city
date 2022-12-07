@@ -1,10 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base-beauty-shop.html' %}
 
-</body>
-</html>
+{% block additional_link %}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css.map">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css.map"> -->
+{% endblock %}
+
+{% block add_script_link %}
+    <link rel="stylesheet" href="css/air-datepicker.css">
+	<script src="js/air-datepicker.js"></script>
+{% endblock %}
+
+{% block body_contain %}
+<section id="admin">
+		<div class="container">
+			<div class="admin">
+				<div class="row">
+					<div class="col-md-2 dec">
+						<div class="accaunt__left">
+							<div class="accaunt__ava fic">
+								<img src="img/avatars/1.svg" alt="avatar" class="accaunt__ava_img">
+								<span class="accaunt__ava_name">Администратор</span>
+							</div>
+							<div class="accaunt__settings fic">
+								<a href="#" class="accaunt__settings_intro">Изменить профиль</a>
+								<a href="#" class="accaunt__settings_out">Выйти</a>
+							</div>
+							<nav>
+								<div class="accaunt__menu_title">МЕНЮ</div>
+								<ul class="accaunt__menu">
+									<li class="accaunt__menu_item active">
+										<a href="#" class="accaunt__menu_item__link">
+											<div class="accaunt__menu_block fic">
+												<img src="img/icons/list.svg" alt="icon" class="accaunt__menu_icon">
+												<span class="accaunt__menu_item__link_intro">Мои записи</span>
+											</div>
+										</a>
+									</li>
+									<li class="accaunt__menu_item">
+										<a href="#" class="accaunt__menu_item__link">
+											<div class="accaunt__menu_block fic">
+												<img src="img/icons/settings.svg" alt="icon" class="accaunt__menu_icon">
+												<span class="accaunt__menu_item__link_intro">Настройки</span>
+											</div>
+										</a>
+									</li>
+									<li class="accaunt__menu_item">
+										<a href="#" class="accaunt__menu_item__link">
+											<div class="accaunt__menu_block fic">
+												<img src="img/icons/tex.svg" alt="icon" class="accaunt__menu_icon">
+												<span class="accaunt__menu_item__link_intro">Тех. поддержка</span>
+											</div>
+										</a>
+									</li>
+									<li class="accaunt__menu_item">
+										<a href="#" class="accaunt__menu_item__link">
+											<div class="accaunt__menu_block fic">
+												<img src="img/icons/pay.svg" alt="icon" class="accaunt__menu_icon">
+												<span class="accaunt__menu_item__link_intro">Платежи</span>
+											</div>
+										</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="admin__main">
+							<div class="admin__title">Главная</div>
+							<hr class="hr">
+							<div class="admin__main_block">
+								<div class="admin__main_block__items">
+									<div class="admin__main_monthPrise admin__main_block__elem">
+										<div class="admin__main_monthPrise__intro">Сумма оплат за месяц</div>
+										<div class="admin__main_monthPrise__sum">628 200 рублей</div>
+									</div>
+									<div class="admin__main_block__elem">
+										<div class="admin__main_monthPrise__intro">Посещений за месяц</div>
+										<div class="admin__main_monthPrise__sum">349</div>
+									</div>
+								</div>
+								<div class="admin__main_block__items">
+									<div class="admin__main_block__elem">
+										<div class="admin__main_monthPrise__intro">Посещений за месяц</div>
+										<div class="admin__main_monthPrise__sum">349</div>
+									</div>
+									<div class="admin__main_block__elem">
+										<div class="admin__main_monthPrise__intro">Процент посещений</div>
+										<div class="admin__main_monthPrise__circle">100%</div>
+									</div>
+									<div class="admin__main_block__elem">
+										<div class="admin__main_monthPrise__intro">Посещений за год</div>
+										<div class="admin__main_monthPrise__sum">3 956</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+
+{% block additional_script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="js/main.js"></script>
+{% endblock %}
