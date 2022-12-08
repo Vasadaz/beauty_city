@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 
 from beauty_shop.views import get_salons, get_salon, get_categories, get_category, get_services, get_service, get_masters, get_master,\
-    get_clients, get_client, get_feedbacks, get_feedback, get_notes, get_note
+    get_clients, get_client, get_feedbacks, get_feedback, get_notes, get_note, get_category_services
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -12,6 +12,7 @@ urlpatterns = [
 
     path('categories/', get_categories, name='categories_list'),
     path('categories/<pk>', get_category, name='category_detail_info'),
+    path('categories/<pk>/services', get_category_services, name='category_services_list'),
 
     path('services/', get_services, name='services_list'),
     path('services/<pk>', get_service, name='service_detail_info'),

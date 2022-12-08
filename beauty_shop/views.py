@@ -73,3 +73,8 @@ def get_note(request, pk):
     note = Note.objects.filter(id=pk).values()
     # return JsonResponse({'note': list(note)}, json_dumps_params={'indent': 4, 'ensure_ascii': False})
     return render(request, 'service.html', context={'note': note})
+
+
+def get_category_services(request, pk):
+    category_services = Service.objects.filter(category=pk).values()
+    return render(request, 'service.html', context={'category_services': category_services})
