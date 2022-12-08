@@ -35,7 +35,7 @@ class ServiceAdmin(admin.ModelAdmin):
         'title',
         'duration',
         'price',
-        'preview',
+        # 'preview',
     )
     list_filter = ('category',)
     list_per_page = 15
@@ -44,7 +44,7 @@ class ServiceAdmin(admin.ModelAdmin):
 
     @admin.display(description='Превью')
     def preview(self, obj):
-        return mark_safe(f'<img src="{obj.image.url}" style="max-height: 200px;">')
+        return mark_safe(f'<img src="{obj.image.url}" style="max-height: 100px;">')
 
 
 @admin.register(Master)
