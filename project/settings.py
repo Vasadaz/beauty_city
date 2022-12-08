@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'beauty_shop.apps.BeautyShopConfig',
+    'environs',
 ]
 
 MIDDLEWARE = [
