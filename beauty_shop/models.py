@@ -138,15 +138,15 @@ class Master(models.Model):
         verbose_name_plural = 'мастера'
 
     def __str__(self):
-        return f'{self.surname} {self.name}'
+        return self.name
 
 
 class Client(models.Model):
     phonenumber = PhoneNumberField(
         verbose_name='Телефон',
         db_index=True,
-        region='RU',
-        unique=True,
+        # region='RU',
+        # unique=True,
     )
     name = models.CharField(
         verbose_name='Имя',
@@ -166,7 +166,7 @@ class Client(models.Model):
         verbose_name_plural = 'клиенты'
 
     def __str__(self):
-        return self.phonenumber
+        return self.name
 
 
 class Feedback(models.Model):
@@ -244,5 +244,5 @@ class Note(models.Model):
         verbose_name = 'запись'
         verbose_name_plural = 'записи'
 
-    def __str__(self):
-        return self.master
+    # def __str__(self):
+    #     return self.master
