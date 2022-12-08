@@ -1,6 +1,7 @@
 import datetime
 
 from django.db import models
+from django.core.validators import FileExtensionValidator
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -40,6 +41,13 @@ class Salon(models.Model):
         verbose_name='Долгота',
         default=30.396429
     )
+    image = models.FileField(
+        verbose_name='Изображение',
+        blank=True,
+        null=True,
+        upload_to='images/salons',
+        validators=[FileExtensionValidator(['png', 'jpeg', 'svg'])]
+    )
 
     class Meta:
         verbose_name = 'салон'
@@ -69,11 +77,12 @@ class Service(models.Model):
     price = models.PositiveSmallIntegerField(
         verbose_name='Цена'
     )
-    image = models.ImageField(
+    image = models.FileField(
         verbose_name='Изображение',
         blank=True,
         null=True,
-        upload_to='images',
+        upload_to='images/services',
+        validators=[FileExtensionValidator(['png', 'jpeg', 'svg'])]
     )
 
     class Meta:
@@ -115,6 +124,13 @@ class Master(models.Model):
         default=timezone.now,
         blank=True,
         null=True,
+    )
+    image = models.FileField(
+        verbose_name='Аватарка',
+        blank=True,
+        null=True,
+        upload_to='images/masters',
+        validators=[FileExtensionValidator(['png', 'jpeg', 'svg'])]
     )
 
     class Meta:
