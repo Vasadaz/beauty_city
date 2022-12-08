@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 
 from .models import Category, Client, Feedback, Master, Note, Salon, Service
 
@@ -29,22 +30,24 @@ class ServiceAdmin(admin.ModelAdmin):
         'duration',
         'price',
         'image',
-        'preview',
+        'image_preview',
     ]
     list_display = (
         'title',
         'duration',
         'price',
-        # 'preview',
+        'image_preview',
     )
     list_filter = ('category',)
     list_per_page = 15
-    raw_id_fields = ('category',)
-    readonly_fields = ['preview']
+    # raw_id_fields = ('category',)
+    readonly_fields = ('image_preview',)
 
-    @admin.display(description='Превью')
-    def preview(self, obj):
-        return mark_safe(f'<img src="{obj.image.url}" style="max-height: 100px;">')
+    def image_preview(self, obj):
+        output = format_html('<img src="{0}" style="height: {1}px"/>', obj.image.url, 100)
+        return mark_safe(output)
+
+    image_preview.short_desciption = 'Предосмотр картинки'
 
 
 @admin.register(Master)
