@@ -10,7 +10,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = (
         'title',
     )
-    list_per_page = 15
+    list_per_page = 20
 
 
 @admin.register(Salon)
@@ -18,8 +18,14 @@ class SalonAdmin(admin.ModelAdmin):
     list_display = (
         'title',
         'address',
+        'preview',
     )
-    list_per_page = 15
+    list_per_page = 20
+    readonly_fields = ('preview',)
+
+    @admin.display(description='Превью изображения')
+    def preview(self, obj):
+        return mark_safe(f'<img src="{obj.image.url}" style="max-height: 100px;">')
 
 
 @admin.register(Service)
@@ -36,18 +42,16 @@ class ServiceAdmin(admin.ModelAdmin):
         'title',
         'duration',
         'price',
-        'image_preview',
+        'preview',
     )
     list_filter = ('category',)
-    list_per_page = 15
+    list_per_page = 20
     # raw_id_fields = ('category',)
-    readonly_fields = ('image_preview',)
+    readonly_fields = ('preview',)
 
-    def image_preview(self, obj):
-        output = format_html('<img src="{0}" style="height: {1}px"/>', obj.image.url, 100)
-        return mark_safe(output)
-
-    image_preview.short_desciption = 'Предосмотр картинки'
+    @admin.display(description='Превью изображения')
+    def preview(self, obj):
+        return mark_safe(f'<img src="{obj.image.url}" style="max-height: 100px;">')
 
 
 @admin.register(Master)
@@ -56,8 +60,14 @@ class MasterAdmin(admin.ModelAdmin):
         'name',
         'surname',
         'salon',
+        'preview',
     )
-    list_per_page = 15
+    list_per_page = 20
+    readonly_fields = ('preview',)
+
+    @admin.display(description='Превью изображения')
+    def preview(self, obj):
+        return mark_safe(f'<img src="{obj.image.url}" style="max-height: 100px;">')
 
 
 @admin.register(Client)
@@ -67,13 +77,12 @@ class ClientAdmin(admin.ModelAdmin):
         'surname',
         'phonenumber',
     )
-    list_per_page = 15
+    list_per_page = 20
 
 
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
     list_display = (
-        'subject',
         'client',
         'master',
         'assessment',
@@ -83,7 +92,7 @@ class FeedbackAdmin(admin.ModelAdmin):
         'master',
         'assessment',
     )
-    list_per_page = 15
+    list_per_page = 20
 
 
 @admin.register(Note)
@@ -100,4 +109,4 @@ class NoteAdmin(admin.ModelAdmin):
         'service',
         'salon',
     )
-    list_per_page = 15
+    list_per_page = 20

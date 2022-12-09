@@ -90,7 +90,7 @@ class Service(models.Model):
         verbose_name_plural = 'услуги'
 
     def __str__(self):
-        return self.title
+        return f'{self.title} {self.duration}'
 
 
 class Master(models.Model):
@@ -138,7 +138,7 @@ class Master(models.Model):
         verbose_name_plural = 'мастера'
 
     def __str__(self):
-        return self.name
+        return f'{self.profession}: {self.surname} {self.name}'
 
 
 class Client(models.Model):
@@ -166,21 +166,16 @@ class Client(models.Model):
         verbose_name_plural = 'клиенты'
 
     def __str__(self):
-        return self.name
+        return f'{self.surname} {self.name}'
 
 
 class Feedback(models.Model):
     ASSESSMENT_CHOICES = (
-        ('1', 1),
-        ('2', 2),
-        ('3', 3),
-        ('4', 4),
-        ('5', 5),
-    )
-
-    subject = models.CharField(
-        verbose_name='Тема отзыва',
-        max_length=200,
+        (1, 1),
+        (2, 2),
+        (3, 3),
+        (4, 4),
+        (5, 5),
     )
     client = models.ForeignKey(
         Client,
@@ -205,7 +200,7 @@ class Feedback(models.Model):
         verbose_name_plural = 'отзывы'
 
     def __str__(self):
-        return self.subject
+        return f'{self.master} оценка {self.assessment}'
 
 
 class Note(models.Model):
@@ -244,5 +239,5 @@ class Note(models.Model):
         verbose_name = 'запись'
         verbose_name_plural = 'записи'
 
-    # def __str__(self):
-    #     return self.master
+    def __str__(self):
+        return f'{self.date_time_start} {self.master} {self.service} {self.salon}'
