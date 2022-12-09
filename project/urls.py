@@ -8,7 +8,10 @@ from beauty_shop.views import index, service
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('index/', index, name='index'),
+    path('', index, name='index'),
     path('service/', service, name='service'),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
+]
+
+
