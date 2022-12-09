@@ -19,7 +19,7 @@
 				<div class="mobMenu__header">
 					<div class="row">
 						<div class="col-4 col-md-3">
-							<a href="/">
+							<a href="{% url 'index' %}">
 								<img src="{% static 'img/Logo.svg' %}" alt="Logo" class="logo header__logo">
 							</a>
 						</div>
@@ -34,11 +34,11 @@
 							<nav>
 								<ul class="mobMenu__menu">
 									<li class="mobMenu__menu_item">
-										<a href="#" class="mobMenu__menu_link">Мастера</a>
+										<a href="#masters" class="mobMenu__menu_link">Мастера</a>
 									</li>
-									<li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Услуги</a></li>
-									<li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Отзывы</a></li>
-									<li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Контакты</a></li>
+									<li class="mobMenu__menu_item"><a href="{% url 'service' %}" class="mobMenu__menu_link">Услуги</a></li>
+									<li class="mobMenu__menu_item"><a href="{% url 'index' %}#reviews" class="mobMenu__menu_link">Отзывы</a></li>
+									<li class="mobMenu__menu_item"><a href="{% url 'index' %}#contacts" class="mobMenu__menu_link">Контакты</a></li>
 								</ul>
 							</nav>
 							<a href="#" class="mobMenu__account">Личный кабинет</a>
@@ -61,17 +61,17 @@
 						<img src="{% static 'img/hamburger.svg' %}" alt="hamburger" class="header__mobMenu">
 					</div>
 					<div class="col-5 col-md-3 col-lg-2">
-						<a href="/">
+						<a href="{% url 'index' %}">
 							<img src="{% static 'img/Logo.svg' %}" alt="Logo" class="logo header__logo">
 						</a>
 					</div>
 					<div class="col-md-5 ">
 						<nav>
                             <ul class="menu">
-                                <li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-                                <li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
-                                <li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-                                <li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+                                <li class="menu__item"><a href="{% url 'index' %}#masters" class="menu__item_link">Мастера</a></li>
+                                <li class="menu__item"><a href="{% url 'service' %}" class="menu__item_link">Услуги</a></li>
+                                <li class="menu__item"><a href="{% url 'index' %}#services" class="menu__item_link">Отзывы</a></li>
+                                <li class="menu__item"><a href="{% url 'index' %}#contacts" class="menu__item_link">Контакты</a></li>
                             </ul>
 					    </nav>
 					</div>
@@ -96,15 +96,15 @@
                 <div class="footer__block">
                     <div class="row">
                         <div class="col-md-3 col-lg-2">
-                            <a href="/"><img src="{% static 'img/Logo.svg' %}" alt="logo" class="footer__logo"></a>
+                            <a href="{% url 'index' %}"><img src="{% static 'img/Logo.svg' %}" alt="logo" class="footer__logo"></a>
                         </div>
                         <div class="col-md-5 minMobHide">
                             <nav>
                                 <ul class="menu">
-                                    <li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-                                    <li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
-                                    <li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-                                    <li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+                                    <li class="menu__item"><a href="{% url 'index' %}#masters" class="menu__item_link">Мастера</a></li>
+                                    <li class="menu__item"><a href="{% url 'service' %}" class="menu__item_link">Услуги</a></li>
+                                    <li class="menu__item"><a href="{% url 'index' %}#reviews" class="menu__item_link">Отзывы</a></li>
+                                    <li class="menu__item"><a href="{% url 'index' %}#contacts" class="menu__item_link">Контакты</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -122,10 +122,10 @@
                             <div class="col-md-5 minMobShow">
                                 <nav>
                                     <ul class="menu">
-                                        <li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-                                        <li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
-                                        <li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-                                        <li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+                                        <li class="menu__item"><a href="{% url 'index' %}#masters" class="menu__item_link">Мастера</a></li>
+                                        <li class="menu__item"><a href="{% url 'service' %}" class="menu__item_link">Услуги</a></li>
+                                        <li class="menu__item"><a href="{% url 'index' %}#reviews" class="menu__item_link">Отзывы</a></li>
+                                        <li class="menu__item"><a href="{% url 'index' %}#contacts" class="menu__item_link">Контакты</a></li>
                                     </ul>
                                 </nav>
                             </div>

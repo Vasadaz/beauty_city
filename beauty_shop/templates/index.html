@@ -1,4 +1,4 @@
-{% extends 'base-beauty-shop.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block additional_link %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -22,7 +22,7 @@
 									довольных клиентов
 								</p>
 							</div>
-							<a href="service.html"><button class="banner__btn">Записаться</button></a>
+							<a href="{% url 'service' %}"><button class="banner__btn">Записаться</button></a>
 						</div>
 					</div>
 					<div class="col-md-12 col-lg-5">
@@ -50,17 +50,26 @@
 				<div class="row salonsSlider">
 
 					{% for salon in salons %}
-					<div class="col-6 col-md-4 col-lg-4 col-xl-3">
-						<div class="salons__block">
-							<img src="{{ salon.image.url }}" alt="salon" class="salons__block_img">
-							<div class="salons__elems">
-								<div class="block__title salons__elems_title">{{ salon.title }}</div>
-								<div class="salons__elems_light">{{ salon.address }}</div>
+						<div class="col-6 col-md-4 col-lg-4 col-xl-3">
+							<div class="salons__block">
+								<img src="{{ salon.image.url }}" alt="salon" class="salons__block_img">
+								<div class="salons__elems">
+									<div class="block__title salons__elems_title">{{ salon.title }}</div>
+									<div class="salons__elems_light">{{ salon.address }}</div>
+								</div>
 							</div>
 						</div>
-					</div>
 					{% endfor %}
 
+<!--					<div class="col-6 col-md-4 col-lg-4 col-xl-3 decVis">-->
+<!--						<div class="salons__block">-->
+<!--							<img src="{% static 'img/salons/salon1.svg' %}" alt="salon" class="salons__block_img">-->
+<!--							<div class="salons__elems">-->
+<!--								<div class="salons__elems_title">BeautyCity Красная</div>-->
+<!--								<div class="salons__elems_light">ул. Красная, д. 10</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
 				</div>
 			</div>
 		</div>
@@ -83,15 +92,15 @@
 				<div class="row servicesSlider">
 
 					{% for service in services %}
-					<div class="col-md-3">
-						<div class="cardBlock services__block">
-							<img src="{{ service.image.url }}" alt="service" class="services__block_img">
-							<div class="services__elems">
-								<div class="services__elems_title">{{ service.title }}</div>
-								<div class="services__elems_light">{{ service.price }}</div>
+						<div class="col-md-3">
+							<div class="cardBlock services__block">
+								<img src="{{ service.image.url }}" alt="service" class="services__block_img">
+								<div class="services__elems">
+									<div class="services__elems_title">{{ service.title }}</div>
+									<div class="services__elems_light">{{ service.price }} руб.</div>
+								</div>
 							</div>
 						</div>
-					</div>
 					{% endfor %}
 
 				</div>
@@ -119,9 +128,9 @@
 					<div class="col-md-3">
 						<div class="cardBlock masters__block">
 							<div class="masters__header fic">
-								<img src="{% static 'img/masters/master1.svg' %}" alt="master" class="masters__header_img">
+								<img src="{{ master.image.url }}" alt="master" class="masters__header_img">
 								<div class="masters__header_elmes">
-									<div class="masters__header_name">{{ master.name }}{{ master.surname }}</div>
+									<div class="masters__header_name">{{ master.name }} {{ master.surname }}</div>
 									<img src="{% static 'img/rating.svg' %}" alt="rating" class="masters__header_rating">
 									<div class="masters__header_reviews">{{master.count_feedback }}</div>
 								</div>
@@ -263,7 +272,7 @@
 			<div class="box-modal_close arcticmodal-close"><img src="{% static 'img/x.svg' %}" alt="x"></div>
 			<div class="popup__title authPopup__title">Войти по коду</div>
 			<p class="popup__text authPopup__text">Введите свой номер телефона, мы вышлем на него код</p>
-			<form action="#" class="authPopup__form">
+			<form action="{% url 'consultation' %}" method="post" class="authPopup__form">
 				<div class="contacts__form_inputBlock">
 					<input type="text" name="tel" class="contacts__form_iunput" placeholder="+7(999)999--99-99" required="">
 				</div>

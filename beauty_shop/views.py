@@ -20,17 +20,17 @@ def service(request):
 
 
 def index(request):
-    salons = Salon.objects.all().values()
-    services = Service.objects.all().values()
-    masters = Master.objects.all().values()
-    feedbacks = Feedback.objects.all().values()
+    salons = Salon.objects.all()
+    services = Service.objects.all()
+    masters = Master.objects.all()
+    feedbacks = Feedback.objects.all()
     data = {
         'salons': salons,
         'services': services,
         'masters': masters,
         'feedbacks': feedbacks,
     }
-    return render(request, 'index.html', context={'data': data})
+    return render(request, 'index.html', context=data)
 
 
 # def get_master_slots(request, pk):
@@ -39,3 +39,14 @@ def index(request):
 #     date1 = date.today()
 #     print(category_services.notes.filter(date_time_start__day=date1.day))
 #     return render(request, 'service.html', context={'category_services': category_services})
+
+def consultation(request):
+    pass
+
+
+def manager(request):
+    pass
+
+
+def notes(request):
+    pass
