@@ -42,3 +42,11 @@ def index(request):
 
 def consultation(request):
     pass
+
+
+def manager(request):
+    pass
+
+
+def notes(request):
+    pass

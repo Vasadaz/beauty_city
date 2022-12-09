@@ -3,7 +3,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from beauty_shop.views import index, service, consultation
+from beauty_shop.views import index, service, consultation, manager, notes
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -11,6 +11,9 @@ urlpatterns = [
     path('', index, name='index'),
     path('service/', service, name='service'),
     path('consultation/', consultation, name='consultation'),
+    path('manager/', manager, name='manager'),
+    path('notes/', notes, name='notes'),
+
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
 
