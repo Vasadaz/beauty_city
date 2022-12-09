@@ -39,3 +39,6 @@ def index(request):
 #     date1 = date.today()
 #     print(category_services.notes.filter(date_time_start__day=date1.day))
 #     return render(request, 'service.html', context={'category_services': category_services})
+
+def consultation(request):
+    pass
