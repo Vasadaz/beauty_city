@@ -20,17 +20,17 @@ def service(request):
 
 
 def index(request):
-    salons = Salon.objects.all().values()
-    services = Service.objects.all().values()
-    masters = Master.objects.all().values()
-    feedbacks = Feedback.objects.all().values()
+    salons = Salon.objects.all()
+    services = Service.objects.all()
+    masters = Master.objects.all()
+    feedbacks = Feedback.objects.all()
     data = {
         'salons': salons,
         'services': services,
         'masters': masters,
         'feedbacks': feedbacks,
     }
-    return render(request, 'index.html', context={'data': data})
+    return render(request, 'index.html', context=data)
 
 
 # def get_master_slots(request, pk):
