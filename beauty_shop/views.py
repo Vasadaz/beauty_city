@@ -1,9 +1,10 @@
-from datetime import date
+from django.db.models import F, Value
 from django.shortcuts import render
 from django.conf import settings
 from .models import Salon, Category, Service, Master, Client, Feedback, Note
 import requests
 from textwrap import dedent
+from django.utils import timezone
 
 
 def service(request):
@@ -21,7 +22,7 @@ def service(request):
 def index(request):
     salons = Salon.objects.all()
     services = Service.objects.all()
-    masters = Master.objects.all()
+    masters = Master.objects.annotate(duration=(Value(timezone.datetime.now().date()) - F('experience')))
     feedbacks = Feedback.objects.all()
     data = {
         'salons': salons,
