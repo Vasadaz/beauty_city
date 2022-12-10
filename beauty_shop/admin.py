@@ -85,12 +85,12 @@ class FeedbackAdmin(admin.ModelAdmin):
     list_display = (
         'client',
         'master',
-        'assessment',
+        'rating',
     )
     list_filter = (
         'client',
         'master',
-        'assessment',
+        'rating',
     )
     list_per_page = 20
 

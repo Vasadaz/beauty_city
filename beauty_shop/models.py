@@ -189,11 +189,15 @@ class Feedback(models.Model):
         verbose_name='Мастер',
         related_name='feedbacks',
     )
-    assessment = models.PositiveSmallIntegerField(
+    rating = models.PositiveSmallIntegerField(
+        verbose_name='Оценка',
         choices=ASSESSMENT_CHOICES,
         default='5',
     )
-    text = models.TextField(blank=True)
+    text = models.TextField(
+        verbose_name='Текст',
+        blank=True,
+    )
 
     class Meta:
         verbose_name = 'отзыв'
