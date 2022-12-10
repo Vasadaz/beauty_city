@@ -49,6 +49,18 @@ def index(request):
 def service_finally(request, pk):
     note = Note.objects.get(id=pk)
     data = {'note': note}
+    if request.method == 'POST':
+        if request.user:
+            fname = request.POST.get('fname', '')
+            tel = request.POST.get('tel')
+            contactsTextarea = request.POST.get('contactsTextarea', '')
+        else:
+            client, created = Client.objects.get_or_create(
+                name=fname,
+                phonenumber=tel
+            )
+        note.message = contactsTextarea
+        note.save()
     return render(request, 'serviceFinally.html', context=data)
 
 

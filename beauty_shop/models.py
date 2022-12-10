@@ -232,6 +232,10 @@ class Note(models.Model):
         verbose_name='Салон',
         related_name='notes',
     )
+    message = models.TextField(
+        verbose_name='Сообщение',
+        blank=True,
+    )
     date_time_start = models.DateTimeField(
         verbose_name='Начало',
     )
