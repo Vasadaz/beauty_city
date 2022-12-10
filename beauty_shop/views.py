@@ -22,7 +22,7 @@ def service(request):
 def index(request):
     salons = Salon.objects.all()
     services = Service.objects.all()
-    masters = Master.objects.annotate(duration=(Value(timezone.datetime.now().date()) - F('experience')))
+    masters = Master.objects.all()
     feedbacks = Feedback.objects.all()
     data = {
         'salons': salons,
