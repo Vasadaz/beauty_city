@@ -10,7 +10,6 @@ urlpatterns = [
 
     path('', index, name='index'),
     path('service/', service, name='service'),
-    # path('api/consultation/', consultation, name='consultation'),
     path('manager/', manager, name='manager'),
     path('notes/', notes, name='notes'),
 

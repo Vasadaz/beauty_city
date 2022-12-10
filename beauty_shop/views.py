@@ -7,18 +7,15 @@ from textwrap import dedent
 
 
 def service(request):
-    salons = Salon.objects.all().values()
-    categories = Category.objects.all().values()
-    # category_services = Service.objects.filter(category=pk).values()
-    services = Service.objects.all().values()
-    # salon_masters = Master.objects.filter(salon=pk).values()
+    salons = Salon.objects.all()
+    categories = Category.objects.prefetch_related('services')
+    masters = Master.objects.all()
     data = {
         'salons': salons,
         'categories': categories,
-        # 'category_services': category_services,
-        'services': services,
+        'masters': masters
     }
-    return render(request, 'service.html', context={'data': data})
+    return render(request, 'service.html', context=data)
 
 
 def index(request):

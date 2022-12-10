@@ -48,7 +48,7 @@
 								<button class="accordion">{{ category.title }}</button>
 								<div class="panel">
 									<div class="accordion__block_items">
-										{% for service in category.services %}
+										{% for service in category.services.all %}
 											<div class="accordion__block_item fic">
 												<div class="accordion__block_item_intro">{{ service.title }}</div>
 												<div class="accordion__block_item_address">{{ service.price }} ₽</div>
