@@ -45,6 +45,12 @@ def index(request):
     return render(request, 'index.html', context=data)
 
 
+def service_finally(request, pk):
+    note = Note.objects.get(id=pk)
+    data = {'note': note}
+    return render(request, 'serviceFinally.html', context=data)
+
+
 # def get_master_slots(request, pk):
 #     category_services = Master.objects.filter(id=pk).first()
 #     print(category_services)
