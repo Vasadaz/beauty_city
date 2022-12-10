@@ -153,3 +153,5 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+TOKEN_TG = env('TOKEN_TG')
+CHAT_ID = env('CHAT_ID')

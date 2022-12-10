@@ -195,7 +195,7 @@
 				<div class="title contacts__title">Контакты</div>
 				<div class="row">
 					<div class="col-md-12 col-lg-4 col-xl-3">
-						<form action="{% url 'consultation' %}" method="post" class="contacts__form">
+						<form action="{% url 'index' %}#contacts" method="post" class="contacts__form">{% csrf_token %}
 							<div class="contacts__form_title">Оставьте заявку на консультацию</div>
 							<div class="contacts__form_block">
 								<input type="text" name="fname" class="contacts__form_iunput" placeholder="Введите имя" required>
@@ -267,12 +267,12 @@
 {% endblock %}
 
 {% block additional_div %}
-<div style="display: none;">
+	<div style="display: none;">
 		<div class="box-modal authPopup popup" id="authModal">
 			<div class="box-modal_close arcticmodal-close"><img src="{% static 'img/x.svg' %}" alt="x"></div>
 			<div class="popup__title authPopup__title">Войти по коду</div>
 			<p class="popup__text authPopup__text">Введите свой номер телефона, мы вышлем на него код</p>
-			<form action="{% url 'consultation' %}" method="post" class="authPopup__form">
+			<form action="{% url 'index' %}" method="post" class="authPopup__form">{% csrf_token %}
 				<div class="contacts__form_inputBlock">
 					<input type="text" name="tel" class="contacts__form_iunput" placeholder="+7(999)999--99-99" required="">
 				</div>
@@ -294,7 +294,6 @@
 				<input type="text" name="num2" class="tipsPopup__form_inputNum popup__input" placeholder="" required="">
 				<input type="text" name="num3" class="tipsPopup__form_inputNum popup__input" placeholder="" required="">
 				<input type="text" name="num4" class="tipsPopup__form_inputNum popup__input" placeholder="" required="">
-
 			</div>
 			<div class="confirmPopup__sms">Если SMS не пришло вы можете <a href="#" class="popup__link">запросить код повторно</a></div>
 			<div class="confirmPopup__changeNumber">
