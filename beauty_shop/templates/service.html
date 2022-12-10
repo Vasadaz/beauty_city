@@ -5,13 +5,13 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css.map">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css.map"> -->
+	<link rel="stylesheet" href="{% static 'css/air-datepicker.css' %}">
 {% endblock %}
 
 {% block add_script_link %}
-	<link rel="stylesheet" href="{% static 'css/air-datepicker.css' %}">
 	<script src="{% static 'js/air-datepicker.js' %}"></script>
 {% endblock %}
-
+{% block class_body %}class="servicePage"{% endblock %}
 {% block body_contain %}
 	<section id="service">
 		<div class="container">
@@ -23,7 +23,7 @@
 					<h1 class="service__title">Запись на услугу</h1>
 					<button class="service__btn btn">Запись по телефону</button>
 				</div>
-				<form action="#" class="service__form">
+				<form action="{% url 'service_finally' %}" method="post" class="service__form">{% csrf_token %}
 					<!-- <select name="selectSalon" id="" class="service__form_select">
 						<option value="" selected>(Выберете салон)</option>
 						<option value="salon1" >Салон 1</option>
