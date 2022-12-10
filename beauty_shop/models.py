@@ -242,6 +242,10 @@ class Note(models.Model):
     date_time_end = models.DateTimeField(
         verbose_name='Конец',
     )
+    payment = models.BooleanField(
+        verbose_name='Оплата',
+        default=False,
+    )
 
     class Meta:
         verbose_name = 'запись'
