@@ -23,7 +23,7 @@
 					<h1 class="service__title">Запись на услугу</h1>
 					<button class="service__btn btn">Запись по телефону</button>
 				</div>
-				<form action="{% url 'service_finally' %}" method="post" class="service__form">{% csrf_token %}
+				<form action="" method='post' id='form_service' class="service__form">{% csrf_token %}
 					<!-- <select name="selectSalon" id="" class="service__form_select">
 						<option value="" selected>(Выберете салон)</option>
 						<option value="salon1" >Салон 1</option>
@@ -119,8 +119,8 @@
 				<div class="time__btns">
 					<div class="row">
 						<div class="col-md-12">
-							<button  class="time__btns_next">Далее</button>
-							<button  class="time__btns_home">На главную</button>
+							<button type=submit form="form_service" class="time__btns_next">Далее</button>
+							<button formaction="{% url 'index' %}" class="time__btns_home">На главную</button>
 						</div>
 					</div>
 				</div>
