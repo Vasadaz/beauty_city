@@ -5,6 +5,7 @@ from .models import Salon, Category, Service, Master, Client, Feedback, Note
 import requests
 from textwrap import dedent
 from django.utils import timezone
+from django.shortcuts import render
 
 
 def service(request):
@@ -14,8 +15,11 @@ def service(request):
     data = {
         'salons': salons,
         'categories': categories,
-        'masters': masters
     }
+    if request.method == "POST":
+        data['form'] = 'Получен POST'
+        print('>' * 20, request.POST)
+
     return render(request, 'service.html', context=data)
 
 

@@ -14,7 +14,7 @@ urlpatterns = [
     path('manager/', manager, name='manager'),
     path('notes/', notes, name='notes'),
 
+    path('service_finally', service_finally, name='service_finally'),
+
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
-
-
