@@ -204,7 +204,7 @@ class Feedback(models.Model):
         verbose_name_plural = 'отзывы'
 
     def __str__(self):
-        return f'{self.master} оценка {self.assessment}'
+        return f'{self.master} оценка {self.rating}'
 
 
 class Note(models.Model):
