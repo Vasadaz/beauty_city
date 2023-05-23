@@ -158,3 +158,4 @@ cython_debug/
 #beauty_city ignore
 media/
 collected_static/
+frontend/
