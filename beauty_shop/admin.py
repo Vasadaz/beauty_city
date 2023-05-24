@@ -36,7 +36,7 @@ class ServiceAdmin(admin.ModelAdmin):
         'duration',
         'price',
         'image',
-        'image_preview',
+        'preview',
     ]
     list_display = (
         'title',
