@@ -19,7 +19,8 @@ urlpatterns = [
     path('notes/', notes, name='notes'),
     path('popup/', popup, name='popup'),
     path('service/', service, name='service'),
-    path('service_finally/', service_finally, name='service_finally'),
+    path('service/<pk>', service_finally, name='service_finally'),
+    path('service_finally', service_finally, name='service_finally'),
 
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
