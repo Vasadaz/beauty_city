@@ -85,5 +85,5 @@ def service_finally(request, pk):
             )
         note.message = contactsTextarea
         note.save()
-    return render(request, 'serviceFinally.html', context=data)
+    return render(request, 'service_finally.html', context=data)
 
