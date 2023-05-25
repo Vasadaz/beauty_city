@@ -55,7 +55,18 @@ def popup(request):
 
 
 def service(request):
-    return render(request, 'service.html')
+    salons = Salon.objects.all()
+    categories = Category.objects.prefetch_related('services')
+    masters = Master.objects.all()
+    data = {
+        'salons': salons,
+        'categories': categories,
+    }
+    if request.method == "POST":
+        data['form'] = 'Получен POST'
+        print('>' * 20, request.POST)
+
+    return render(request, 'service.html', context=data)
 
 
 def service_finally(request):
