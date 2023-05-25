@@ -140,3 +140,6 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+TELEGRAM_TOKEN = env('TELEGRAM_TOKEN', '')
+TELEGRAM_CHAT_ID = env('TELEGRAM_CHAT_ID', '')
