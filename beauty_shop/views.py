@@ -69,6 +69,21 @@ def service(request):
     return render(request, 'service.html', context=data)
 
 
-def service_finally(request):
-    return render(request, 'service_finally.html')
+def service_finally(request, pk):
+    note = Note.objects.get(id=pk)
+    data = {'note': note}
+    if request.method == 'POST':
+        fname = request.POST.get('fname', '')
+        tel = request.POST.get('tel')
+
+        if request.user:
+            contactsTextarea = request.POST.get('contactsTextarea', '')
+        else:
+            client, created = Client.objects.get_or_create(
+                name=fname,
+                phonenumber=tel
+            )
+        note.message = contactsTextarea
+        note.save()
+    return render(request, 'serviceFinally.html', context=data)
 
