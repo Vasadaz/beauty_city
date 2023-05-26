@@ -3,7 +3,7 @@ import requests
 from django.conf import settings
 from django.shortcuts import render
 from textwrap import dedent
-
+from datetime import datetime  
 from .models import (
     Salon,
     Category,
@@ -43,7 +43,32 @@ def index(request):
 
 
 def manager(request):
-    return render(request, 'manager.html')
+    all_note = Note.objects.all()
+    current_month_visits = all_note.filter(
+            date_time_start__month = datetime.today().month,
+            ) 
+    visits_per_year = all_note.filter(
+            date_time_start__year = datetime.today().year,
+            payment = True,
+            ).count()
+    monthly_total = sum(
+            [
+                visit.service.price for visit in current_month_visits.filter(
+                    payment = True
+                    )
+                ]
+            )
+    paid_visits = current_month_visits.filter(payment = True).count()
+    all_entries_month = all_note.count()
+    visits_percentage = paid_visits * 100 / all_entries_month
+    data = {
+            'current_month_visits': paid_visits,
+            'monthly_total': monthly_total,
+            'visits_per_year': visits_per_year,
+            'all_entries_month':all_entries_month,
+            'visits_percentage': visits_percentage,
+            }
+    return render(request, 'manager.html', context=data)
 
 
 def notes(request):
