@@ -60,7 +60,7 @@ def manager(request):
             )
     paid_visits = current_month_visits.filter(payment = True).count()
     all_entries_month = all_note.count()
-    visits_percentage = paid_visits * 100 / all_entries_month
+    visits_percentage = paid_visits * 100 // all_entries_month
     data = {
             'current_month_visits': paid_visits,
             'monthly_total': monthly_total,
