@@ -1,5 +1,5 @@
 import requests
-
+from django.shortcuts import render, redirect
 from django.conf import settings
 from django.shortcuts import render
 from textwrap import dedent
@@ -43,6 +43,8 @@ def index(request):
 
 
 def manager(request):
+    if not request.user.is_superuser:
+        return redirect("http://127.0.0.1:8000/admin/login/?next=/manager/")
     all_note = Note.objects.all()
     current_month_visits = all_note.filter(
             date_time_start__month = datetime.today().month,
