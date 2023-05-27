@@ -35,8 +35,8 @@ def index(request):
         Имя: {user_name}
         Телефон: {user_tel}
         Сообщение: {order_text}'''
-        url = f"https://api.telegram.org/bot{settings.TOKEN_TG}/sendmessage"
-        params = {'chat_id': settings.CHAT_ID, 'text': dedent(msg)}
+        url = f'https://api.telegram.org/bot{settings.TELEGRAM_TOKEN}/sendmessage'
+        params = {'chat_id': settings.TELEGRAM_CHAT_ID, 'text': dedent(msg)}
         response = requests.get(url, params=params)
         response.raise_for_status()
     return render(request, 'index.html', context=data)
