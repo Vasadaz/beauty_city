@@ -33,12 +33,12 @@
 								<div class="serviceFinally__form_content">
 									<div class="serviceFinally__form_content__block fic">
 										<div class="serviceFinally__form_content__title">{{ note.service.title}}</div>
-										<div class="serviceFinally__form_content__price">{{ note.salon.price}} ₽</div>
+										<div class="serviceFinally__form_content__price">{{ note.service.price}} ₽</div>
 									</div>
 									<div class="serviceFinally__form_content__block fic">
 										<div class="serviceFinally__form_content__items fic">
-										  	<img src="{% static 'img/masters/avatar/vizajist1.svg' %}" alt="avatar" class="accordion__block_img">
-										  	<div class="accordion__block_master">{{ note.client.name}} {{ note.client.surname}}Грибнова</div>
+										  	<img src="{{ note.master.image.url }}" alt="avatar" class="accordion__block_img">
+										  	<div class="accordion__block_master">{{ note.master.name}} {{ note.master.surname}}</div>
 									    </div>
 									    <div class="serviceFinally__form_content__item fic">
 											<div class="serviceFinally__form_content__time">{{ note.date_time_start.time}}</div>
