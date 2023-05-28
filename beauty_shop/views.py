@@ -1,6 +1,7 @@
 import requests
 from django.shortcuts import render, redirect
 from django.conf import settings
+from django.http import JsonResponse
 from django.shortcuts import render
 from textwrap import dedent
 from datetime import datetime  
@@ -114,3 +115,7 @@ def service_finally(request, pk):
         note.save()
     return render(request, 'service_finally.html', context=data)
 
+
+def json_service_finally(request):
+    return JsonResponse(request.POST)
+    # return render(request, 'service_finally.html')

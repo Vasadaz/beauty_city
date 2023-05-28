@@ -32,38 +32,49 @@
 						<option value="salon3" >Салон 3</option>
 					</select> -->
 					<div class="service__form_block service__salons">
-						<button class="accordion">(Выберете салон)</button>
-						<div class="panel">
+						<select name="salon" id="salonSelector" class="accordion" required>
+							<option value="" disabled selected hidden>
+								<div class="accordion__block_intro">(Выберете салон)</div>
+							</option>
+
 							{% for salon in salons %}
-								<div class="accordion__block fic">
-									<div class="accordion__block_intro">{{ salon.title }}</div>
-									<div class="accordion__block_address">({{ salon.address }})</div>
-								</div>
+							<option value="{{ salon.id }}" >
+								<div class="accordion__block_intro">{{ salon.title }}</div>
+								<div class="accordion__block_address">({{ salon.address }})</div>
+							</option>
 							{% endfor %}
-						</div>
+						</select>
 					</div>
+
 					<div class="service__form_block service__services">
-						<button class="accordion">(Выберете услугу)</button>
-						<div class="panel">
+						<select name="service" id="serviceSelector" class="accordion" required >
+							<option value="" disabled selected hidden>
+								<div class="accordion__block_intro">(Выберете услугу)</div>
+							</option>
 							{% for category in categories %}
-								<button class="accordion">{{ category.title }}</button>
-								<div class="panel">
-									<div class="accordion__block_items">
-										{% for service in category.services.all %}
-											<div class="accordion__block_item fic">
-												<div class="accordion__block_item_intro">{{ service.title }}</div>
-												<div class="accordion__block_item_address">{{ service.price }} ₽</div>
-											</div>
-										{% endfor %}
-								  	</div>
-								</div>
+								<optgroup label="{{ category.title }}">
+								{% for service in category.services.all %}
+								<option value="{{ service.id }}" >
+									<div class="accordion__block_intro">{{ service.title }}</div>
+									<div class="accordion__block_address">{{ service.price }} ₽</div>
+								</option>
+								{% endfor %}
 							{% endfor %}
-						</div>
+						</select>
 					</div>
+
 					<div class="service__form_block service__masters">
-						<button class="accordion">(Выберете мастера)</button>
-						<div class="panel">
+						<select name="master" id="masterSelector" class="accordion" required>
+							<option value="" disabled selected hidden>
+								<div class="accordion__block_intro">(Выберете мастера)</div>
+							</option>
 							<!-- Список мастеров в зависимости от выбранного салона -->
+						</select>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<button class="time__btns_next" type="submit">ПРОВЕРКА</button>
 						</div>
 					</div>
 				</form>
@@ -112,7 +123,7 @@
 				<div class="time__btns">
 					<div class="row">
 						<div class="col-md-12">
-							<button  class="time__btns_next" type="submit">Далее</button>
+							<button  class="time__btns_next" type="submit" >Далее</button>
 							<button  class="time__btns_home">На главную</button>
 						</div>
 					</div>
@@ -272,49 +283,41 @@
 		  });
 		}
 
+		let selectSalon = 0
+		$('#salonSelector').on('change',  function handleChange(event) {
+			selectSalon = event.target.value
+		});
 
-		$(document).on('click', '.accordion__block', function(e) {
-			let thisName,thisAddress;
+		$('#serviceSelector').on('change',  function handleChange(event) {
+			console.log(selectSalon);
+			console.log(event.target.value);
 
-			thisName = $(this).find('> .accordion__block_intro').text()
-			thisAddress = $(this).find('> .accordion__block_address').text()
+			let selectService = event.target.value
 
 			{% for salon in salons %}
-				if(thisName === '{{ salon.title }}') {
-					$('.service__masters > .panel').html(`
-						<div class="accordion__block fic">
-							<div class="accordion__block_elems fic">
-								<img src="{% static 'img/any_master.svg' %}" alt="avatar" class="accordion__block_img">
-								<div class="accordion__block_master">Любой мастер</div>
-							</div>
+			if(selectSalon === '{{ salon.id }}' ) {
+				$('.service__masters > select ').html(`
+					<option value="" disabled selected hidden>
+						<div class="accordion__block_intro">(Выберете мастера)</div>
+					</option>
+
+					<option value="0">
+						<div className="accordion__block_intro">Любой мастер</div>
+					</option>
+
+					{% for master in salon.masters.all %}
+					<option value="{{ master.id }}" >
+						<div class="accordion__block_elems fic">
+							<img src="{{ master.image.url }}" alt="avatar" class="accordion__block_img">
+							<div class="accordion__block_master">{{ master.name }} {{ master.surname }}</div>
+							<div class="accordion__block_prof">({{ master.profession }})</div>
 						</div>
-
-					  	{% for master in salon.masters.all %}
-							<div class="accordion__block fic">
-								<div class="accordion__block_elems fic">
-									<img src="{{ master.image.url }}" alt="avatar" class="accordion__block_img">
-									<div class="accordion__block_master">{{ master.name }} {{ master.surname }}</div>
-								</div>
-								<div class="accordion__block_prof">{{ master.profession }}</div>
-							</div>
-					 	{% endfor %}
-					`)
-					$('.service__masters div[data-masters="Pushkinskaya"]').addClass('vib')
-				}
-				console.log(thisName)
+					</option>
+					{% endfor %}
+				`)
+			}
 			{% endfor %}
-
-			$(this).parent().parent().find('> button.active').addClass('selected').text(thisName + '  ' +thisAddress)
-			setTimeout(() => {
-				$(this).parent().parent().find('> button.active').click()
-			}, 200)
-
-			// $(this).parent().addClass('hide')
-
-			// console.log($(this).parent().parent().find('.panel').hasClass('selected'))
-
-			// $(this).parent().parent().find('.panel').addClass('selected')
-		})
+		});
 
 
 		$('.accordion__block_item').click(function(e) {
