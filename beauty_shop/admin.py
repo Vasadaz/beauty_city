@@ -60,6 +60,7 @@ class MasterAdmin(admin.ModelAdmin):
         'name',
         'surname',
         'salon',
+        'profession',
         'preview',
     )
     list_per_page = 20
