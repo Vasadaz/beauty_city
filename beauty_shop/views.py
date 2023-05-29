@@ -125,7 +125,7 @@ def notes(request, pk):
 
     data = {
         'client': client_obj,
-        'sum_price': client_obj.notes.aggregate(Sum('price'))
+        'sum_price': client_obj.notes.filter(payment_status=False).aggregate(Sum('price'))
     }
 
     return render(request, 'notes.html', context=data)
