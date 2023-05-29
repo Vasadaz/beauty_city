@@ -84,10 +84,48 @@ def manager(request):
 
 
 def notes(request):
-    return render(request, 'notes.html')
+    if request.method == 'POST':
+        salon = Salon.objects.get(id=request.POST.get('salon'))
+        service = Service.objects.get(id=request.POST.get('service'))
+        master = Master.objects.get(id=request.POST.get('master'))
+
+        client_name = request.POST.get('client_name')
+        client_tel = request.POST.get('client_tel')
+        client_comment = request.POST.get('client_comment', '')
+
+        date_time_start = datetime.strptime(request.POST.get('datetime'), '%d %B %Y (%A) %H:%M')
+        print(date_time_start)
+
+        client_obj, created_as = Client.objects.get_or_create(
+            phonenumber=client_tel,
+            name=client_name,
+        )
+
+        if created_as:
+            client_obj.name = client_name
+            client_obj.surname = ''
+            client_obj.save()
+
+
+        note_obj = Note(
+            client=client_obj,
+            master=master,
+            service=service,
+            salon=salon,
+            comment=client_comment,
+            date_time_start=date_time_start,
+            date_time_end=date_time_start,
+            payment=True,
+        )
+        note_obj.save()
+
+
+    return JsonResponse(request.POST)
+    #return render(request, 'notes.html')
 
 
 def popup(request):
+
     return render(request, 'popup.html')
 
 
@@ -117,13 +155,32 @@ def service(request):
         'masters': masters,
         'master_time_slots': master_time_slots
     }
-    if request.method == "POST":
-        data['form'] = 'Получен POST'
-        print('>' * 20, request.POST)
 
     return render(request, 'service.html', context=data)
 
 
+def service_finally(request):
+    if request.method == 'POST':
+        salon = Salon.objects.get(id=request.POST.get('salon'))
+        service = Service.objects.get(id=request.POST.get('service'))
+        master = Master.objects.get(id=request.POST.get('master'))
+        date = request.POST.get('date')
+        time = request.POST.get('time')
+
+        data = {
+            'salon': salon,
+            'service': service,
+            'master': master,
+            'date': date,
+            'time': time,
+        }
+
+
+    return render(request, 'service_finally.html', context=data)
+
+
+
+"""
 def service_finally(request, pk):
     note = Note.objects.get(id=pk)
     data = {'note': note}
@@ -141,8 +198,4 @@ def service_finally(request, pk):
         note.message = contactsTextarea
         note.save()
     return render(request, 'service_finally.html', context=data)
-
-
-def json_service_finally(request):
-    return JsonResponse(request.POST)
-    # return render(request, 'service_finally.html')
+"""

@@ -14,55 +14,59 @@
 			<div class="serviceFinally">
 				<div class="row">
 					<div class="col-md-6 col-lg-6">
-						<div class="breadCrumbs">
-							<a href="#" class="breadCrumbs__item">На главную</a>
-						</div>
 						<div class="service__block">
 							<h1 class="service__title">Запись на услугу</h1>
 						</div>
-						<form action="{% url 'service_finally' note.id %}" method="post" class="serviceFinally__form">
+						<form action="{% url 'notes'%}" method="post" class="serviceFinally__form">
 							{% csrf_token %}
 							<div class="serviceFinally__form_block">
 								<div class="serviceFinally__form_header fic">
-									<span class="serviceFinally__form_header__number">Запись №{{ note.pk }}</span>
+									<span class="serviceFinally__form_header__number">Запись № 10 </span>
 									<div class="serviceFinally__form_header__item fic">
-										<div class="serviceFinally__form_header__service">{{ note.salon.title }}</div>
-										<div class="serviceFinally__form_header__address">{{ note.salon.address }}</div>
+                                        <input type="hidden" name="salon" value="{{ salon.id }}">
+										<div class="serviceFinally__form_header__service">{{ salon.title }}</div>
+										<div class="serviceFinally__form_header__address">{{ salon.address }}</div>
 									</div>
 								</div>
 								<div class="serviceFinally__form_content">
 									<div class="serviceFinally__form_content__block fic">
-										<div class="serviceFinally__form_content__title">{{ note.service.title}}</div>
-										<div class="serviceFinally__form_content__price">{{ note.service.price}} ₽</div>
+                                        <input type="hidden" name="service" value="{{ service.id }}">
+										<div class="serviceFinally__form_content__title">{{ service.title }}</div>
+										<div class="serviceFinally__form_content__price">{{ service.price }} ₽</div>
 									</div>
 									<div class="serviceFinally__form_content__block fic">
 										<div class="serviceFinally__form_content__items fic">
-										  	<img src="{{ note.master.image.url }}" alt="avatar" class="accordion__block_img">
-										  	<div class="accordion__block_master">{{ note.master.name}} {{ note.master.surname}}</div>
+                                            <input type="hidden" name="master" value="{{ master.id }}">
+										  	<img src="{{ master.image.url }}" alt="avatar" class="accordion__block_img">
+										  	<div class="accordion__block_master">{{ master.name }} {{ master.surname }}</div>
 									    </div>
 									    <div class="serviceFinally__form_content__item fic">
-											<div class="serviceFinally__form_content__time">{{ note.date_time_start.time}}</div>
-											<div class="serviceFinally__form_content__date">{{ note.date_time_start.date}}</div>
+                                            <input type="hidden" name="datetime" value="{{ date }} {{ time }}">
+											<div class="serviceFinally__form_content__time">{{ time }}</div>
+											<div class="serviceFinally__form_content__date">{{ date }}</div>
 										</div>
 									</div>
-
 								</div>
+
 							</div>
 							<div class="serviceFinally__form_itesm">
 								<div class="contacts__form_block fic">
-									<input type="text" name="fname" class="contacts__form_iunput" placeholder="Введите имя" required="">
+									<input type="text" name="client_name" class="contacts__form_iunput" placeholder="Введите имя" required="">
 									<div class="contacts__form_inputBlock">
-										<input type="text" name="tel" class="contacts__form_iunput" placeholder="+7(999)999--99-99" required="">
+										<input type="text" name="client_tel" class="contacts__form_iunput" placeholder="+7(999)999--99-99" required="">
 									</div>
 								</div>
 
-								<textarea name="contactsTextarea" class="contacts__form_textarea" placeholder="Вопрос(необязательно)"></textarea>
+								<textarea name="client_comment" class="contacts__form_textarea" placeholder="Вопрос(необязательно)"></textarea>
 								<div class="contacts__form_checkboxBlock fic">
 									<input type="checkbox" class="contacts__form_checkbox" checked="">
 									<span class="contacts__form_checkboxBlock__intro">Я согласен(а) с политикой конфидециоальности</span>
 								</div>
-								<button type="submit" class="serviceFinallys__form_btn">Записаться</button>
-								<button type="submit" class="serviceFinallys__form_back">Назад</button>
+								<button type="submit" class="serviceFinallys__form_btn">Оплатить</button>
+                                <a href="{% url 'service' %}">
+                                    <button  class="serviceFinallys__form_back" type="button">Назад</button>
+                                </a>
+
 							</div>
 						</form>
 					</div>
