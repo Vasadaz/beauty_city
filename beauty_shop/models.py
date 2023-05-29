@@ -253,3 +253,24 @@ class Note(models.Model):
 
     def __str__(self):
         return f'{self.date_time_start} {self.master} {self.service} {self.salon}'
+
+
+
+class TimeSlot(models.Model):
+    master = models.ForeignKey(
+        Master,
+        on_delete=models.CASCADE,
+        verbose_name='Мастер',
+        related_name='time_slots',
+    )
+    time_slot = models.DateTimeField(
+        verbose_name='Слот',
+    )
+
+    class Meta:
+        verbose_name = 'временной слот'
+        verbose_name_plural = 'временные слоты'
+
+    def __str__(self):
+        return f'{self.master} - {self.timeslot}'
+

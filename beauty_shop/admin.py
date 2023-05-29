@@ -2,8 +2,16 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.utils.html import format_html
 
-from .models import Category, Client, Feedback, Master, Note, Salon, Service
-
+from .models import (
+    Category,
+    Client,
+    Feedback,
+    Master,
+    Note,
+    Salon,
+    Service,
+    TimeSlot,
+)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -109,5 +117,14 @@ class NoteAdmin(admin.ModelAdmin):
         'master',
         'service',
         'salon',
+    )
+    list_per_page = 20
+
+
+@admin.register(TimeSlot)
+class TimeSlotAdmin(admin.ModelAdmin):
+    list_display = (
+        'master',
+        'time_slot',
     )
     list_per_page = 20
