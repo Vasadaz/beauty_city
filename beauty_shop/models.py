@@ -272,5 +272,5 @@ class TimeSlot(models.Model):
         verbose_name_plural = 'временные слоты'
 
     def __str__(self):
-        return f'{self.master} - {self.timeslot}'
+        return f'{self.master} - {self.time_slot_at}'
 
