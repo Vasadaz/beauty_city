@@ -3,7 +3,7 @@
 {% block additional_link %}
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!-- 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css.map">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css.map">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css.map"> -->
 	<link rel="stylesheet" href="{% static 'css/air-datepicker.css' %}">
 {% endblock %}
@@ -25,12 +25,7 @@
 				</div>
 				<form action="{% url 'service_finally' %}" method="post" class="service__form">
 					{% csrf_token %}
-					<!-- <select name="selectSalon" id="" class="service__form_select">
-						<option value="" selected>(Выберете салон)</option>
-						<option value="salon1" >Салон 1</option>
-						<option value="salon2" >Салон 2</option>
-						<option value="salon3" >Салон 3</option>
-					</select> -->
+
 					<div class="service__form_block service__salons">
 						<select name="salon" id="salonSelector" class="accordion" required>
 							<option value="" disabled selected hidden>
@@ -51,15 +46,7 @@
 							<option value="" disabled selected hidden>
 								<div class="accordion__block_intro">(Выберете услугу)</div>
 							</option>
-							{% for category in categories %}
-								<optgroup label="{{ category.title }}">
-								{% for service in category.services.all %}
-								<option value="{{ service.id }}" >
-									<div class="accordion__block_intro">{{ service.title }}</div>
-									<div class="accordion__block_address">{{ service.price }} ₽</div>
-								</option>
-								{% endfor %}
-							{% endfor %}
+                            <!-- Список услуг в зависимости от выбранного салона -->
 						</select>
 					</div>
 
@@ -71,6 +58,25 @@
 							<!-- Список мастеров в зависимости от выбранного салона -->
 						</select>
 					</div>
+
+                    <div class="service__form_block service__masters">
+						<select name="date" id="dateSelector" class="accordion" required>
+							<option value="" disabled selected hidden>
+								<div class="accordion__block_intro">(Выберете дату)</div>
+							</option>
+							<!-- Список дат в зависимости от мастера -->
+						</select>
+					</div>
+
+                    <div class="service__form_block service__masters">
+						<select name="time" id="timeSelector" class="accordion" required>
+							<option value="" disabled selected hidden>
+								<div class="accordion__block_intro">(Выберете время)</div>
+							</option>
+							<!-- Список времени в зависимости от даты и мастера -->
+						</select>
+					</div>
+
 
 					<div class="row">
 						<div class="col-md-12">
@@ -284,19 +290,54 @@
 		}
 
 		let selectSalon = 0
+        let selectService = 0
+        let selectMaster = 0
+        let selectDate = 0
+        let selectTime = 0
+
 		$('#salonSelector').on('change',  function handleChange(event) {
 			selectSalon = event.target.value
+
+            $('#serviceSelector').html(`
+                <option value="" disabled selected hidden>
+                    <div class="accordion__block_intro">(Выберете услугу)</div>
+                </option>
+                {% for category in categories %}
+                    <optgroup label="{{ category.title }}">
+                    {% for service in category.services.all %}
+                    <option value="{{ service.id }}" >
+                        <div class="accordion__block_intro">{{ service.title }}</div>
+                        <div class="accordion__block_address">{{ service.price }} ₽</div>
+                    </option>
+                    {% endfor %}
+                {% endfor %}
+            `);
+
+            $('#masterSelector').html(`
+                <option value="" disabled selected hidden>
+                    <div class="accordion__block_intro">(Выберете мастера)</div>
+                </option>
+            `);
+
+            $('#dateSelector').html(`
+                <option value="" disabled selected hidden>
+                    <div class="accordion__block_intro">(Выберете дату)</div>
+                </option>
+            `);
+
+            $('#timeSelector').html(`
+                <option value="" disabled selected hidden>
+                    <div class="accordion__block_intro">(Выберете время)</div>
+                </option>
+            `);
 		});
 
 		$('#serviceSelector').on('change',  function handleChange(event) {
-			console.log(selectSalon);
-			console.log(event.target.value);
-
-			let selectService = event.target.value
+			selectService = event.target.value
 
 			{% for salon in salons %}
 			if(selectSalon === '{{ salon.id }}' ) {
-				$('.service__masters > select ').html(`
+				$('#masterSelector').html(`
 					<option value="" disabled selected hidden>
 						<div class="accordion__block_intro">(Выберете мастера)</div>
 					</option>
@@ -314,11 +355,72 @@
 						</div>
 					</option>
 					{% endfor %}
-				`)
+				`);
+
+                $('#dateSelector').html(`
+					<option value="" disabled selected hidden>
+						<div class="accordion__block_intro">(Выберете дату)</div>
+					</option>
+				`);
+
+                $('#timeSelector').html(`
+					<option value="" disabled selected hidden>
+						<div class="accordion__block_intro">(Выберете время)</div>
+					</option>
+				`);
 			}
 			{% endfor %}
 		});
 
+        $('#masterSelector').on('change',  function handleChange(event) {
+			selectMaster = event.target.value
+
+            $('#dateSelector').html(`
+                <option value="" disabled selected hidden>
+                    <div class="accordion__block_intro">(Выберете дату)</div>
+                </option>
+
+                <option value="0">
+                    <div class="accordion__block_intro">Любая дата</div>
+                </option>
+
+                <option value="1" >
+                    <div class="accordion__block_elems fic">
+                        <div class="accordion__block_intro">29.05.2023 (Понедельник)</div>
+                    </div>
+                </option>
+            `);
+
+            $('#timeSelector').html(`
+                <option value="" disabled selected hidden>
+                    <div class="accordion__block_intro">(Выберете время)</div>
+                </option>
+            `);
+		});
+
+        $('#dateSelector').on('change',  function handleChange(event) {
+			dateDate = event.target.value
+
+            $('#timeSelector').html(`
+                <option value="" disabled selected hidden>
+                    <div class="accordion__block_intro">(Выберете время)</div>
+                </option>
+
+                <option value="0">
+                    <div className="accordion__block_intro">Любое время</div>
+                </option>
+
+                <option value="1" >
+                    <div class="accordion__block_elems fic">
+                        <div className="accordion__block_intro">20:00</div>
+                    </div>
+                </option>
+            `);
+		});
+
+        $('#timeSelector').on('change',  function handleChange(event) {
+			dateTime= event.target.value
+		});
 
 		$('.accordion__block_item').click(function(e) {
 			let thisName,thisAddress;
