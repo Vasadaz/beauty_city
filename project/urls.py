@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 from beauty_shop.views import (
     index,
     manager,
+    note,
     notes,
     popup,
     service,
@@ -16,7 +17,8 @@ urlpatterns = [
 
     path('', index, name='index'),
     path('manager/', manager, name='manager'),
-    path('notes/', notes, name='notes'),
+    path('note/', note, name='note'),
+    path('notes/<pk>/', notes, name='notes'),
     path('popup/', popup, name='popup'),
     path('service/', service, name='service'),
     path('service_finally/', service_finally, name='service_finally'),

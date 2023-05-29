@@ -4,12 +4,12 @@ from textwrap import dedent
 
 import requests
 
-from django.shortcuts import render, redirect
 from django.conf import settings
-from django.http import JsonResponse
-from django.shortcuts import render
+from django.db.models import Sum
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
-from .models import (
+from beauty_shop.models import (
     Salon,
     Category,
     Service,
@@ -83,7 +83,7 @@ def manager(request):
     return render(request, 'manager.html', context=data)
 
 
-def notes(request):
+def note(request):
     if request.method == 'POST':
         salon = Salon.objects.get(id=request.POST.get('salon'))
         service = Service.objects.get(id=request.POST.get('service'))
@@ -98,12 +98,10 @@ def notes(request):
 
         client_obj, created_as = Client.objects.get_or_create(
             phonenumber=client_tel,
-            name=client_name,
         )
 
         if created_as:
             client_obj.name = client_name
-            client_obj.surname = ''
             client_obj.save()
 
 
@@ -111,21 +109,29 @@ def notes(request):
             client=client_obj,
             master=master,
             service=service,
+            price=service.price,
             salon=salon,
             comment=client_comment,
             date_time_start=date_time_start,
             date_time_end=date_time_start,
-            payment=True,
         )
         note_obj.save()
 
+        return redirect(reverse('notes', args=[client_obj.id]))
 
-    return JsonResponse(request.POST)
-    #return render(request, 'notes.html')
+
+def notes(request, pk):
+    client_obj = Client.objects.get(id=pk)
+
+    data = {
+        'client': client_obj,
+        'sum_price': client_obj.notes.aggregate(Sum('price'))
+    }
+
+    return render(request, 'notes.html', context=data)
 
 
 def popup(request):
-
     return render(request, 'popup.html')
 
 

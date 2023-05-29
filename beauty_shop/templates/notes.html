@@ -80,105 +80,115 @@
 							</div>
 						</div>
 
-						{% for note in client.notes %}
-							{% if not note.past %}
-								<div class="notes__content notes__content_upcoming">
-									<div class="notes__main_title">ПРЕДСТОЯЩИЕ</div>
-									<div class="notes__main_block">
-										<img src="{% static 'img/services/service3.svg' %}" alt="service1" class="notes__main_block__img">
-										<div class="notes__main_block__elems">
-											<div class="notes__main_block__header fic">
-												<div class="notes__main_block__header__itesm fic">
-													<div class="notes__main_number">Запись №{{ note.pk }}</div>
-													<div class="notes__main_address">{{ note.salon.address }}</div>
-												</div>
-												<div class="notes__main_pay unPaid">{{ note.payment_status }}</div>
+
+						<div class="notes__content notes__content_upcoming">
+							<div class="notes__main_title">ПРЕДСТОЯЩИЕ</div>
+							{% for note in client.notes.all %}
+							{% if not note.completed_status %}
+							<div class="notes__main_block">
+								<img src="{{ note.service.image.url }}" alt="service1" class="notes__main_block__img">
+								<div class="notes__main_block__elems">
+									<div class="notes__main_block__header fic">
+										<div class="notes__main_block__header__itesm fic">
+											<div class="notes__main_number">Запись №{{ note.id }} в салоне {{ note.salon.title }} ({{ note.salon.address }})</div>
+										</div>
+										{% if note.payment_status  %}
+										<div class="notes__main_pay unPaid" style="color: #1CD44C">Оплачено</div>
+										{% else %}
+										<div class="notes__main_pay unPaid">Не оплачено</div>
+										{% endif %}
+									</div>
+									<div class="notes__main_block__main ">
+										<div class="notes__main_block__main_items">
+											<div class="notes__main_block__main_elems fic">
+												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Услуга:</div>
+												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Цена:</div>
 											</div>
-											<div class="notes__main_block__main ">
-												<div class="notes__main_block__main_items">
-													<div class="notes__main_block__main_elems fic">
-														<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Услуга:</div>
-														<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Цена:</div>
-													</div>
-													<div class="notes__main_block__main_elems fic">
-														<div class="notes__main_block__main_elems__name otes__main_blockWidth">{{ note.service.title }}</div>
-														<div class="notes__main_block__main_elems__price otes__main_blockWidth">{{ note.service.price }} руб</div>
-													</div>
-												</div>
-												<div class="notes__main_block__main_items">
-													<div class="notes__main_block__main_elems fic">
-														<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Мастер:</div>
-														<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Дата и время:</div>
-													</div>
-													<div class="notes__main_block__main_elems fic">
-														<div class="notes__main_block__main_elems__name otes__main_blockWidth">{{ note.master.name }} {{ note.master.surname }}</div>
-														<div class="notes__main_block__main_elems__date otes__main_blockWidth">{{ note.date_time_start }}</div>
-													</div>
-												</div>
+											<div class="notes__main_block__main_elems fic">
+												<div class="notes__main_block__main_elems__name otes__main_blockWidth">{{ note.service.title }}</div>
+												<div class="notes__main_block__main_elems__price otes__main_blockWidth">{{ note.service.price }} руб</div>
 											</div>
-											<hr class="notes__block_hr">
-											<div class="notes__footer fic">
-												<a href="#" class="notes__footer_link rewiewPopupOpen">Оставить отзыв</a>
-												<a href="#" class="notes__footer_link tipsPopupOpen">Чаевые</a>
-												<button class="notes__footer_btn payPopupOpen">Оплатить</button>
-												<div class="notes__main_pay unPaid">{{ note.payment_status }}</div>
+										</div>
+										<div class="notes__main_block__main_items">
+											<div class="notes__main_block__main_elems fic">
+												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Мастер:</div>
+												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Дата и время:</div>
+											</div>
+											<div class="notes__main_block__main_elems fic">
+												<div class="notes__main_block__main_elems__name otes__main_blockWidth">{{ note.master.name }} {{ note.master.surname }}</div>
+												<div class="notes__main_block__main_elems__date otes__main_blockWidth">{{ note.date_time_start }}</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							{% else %}
-								<div class="notes__content notes__content_history">
-									<div class="notes__main_title">ПРОШЕДШИЕ</div>
-									<div class="notes__main_block">
-										<img src="{% static 'img/services/service1.svg' %}" alt="service1" class="notes__main_block__img">
-										<div class="notes__main_block__elems">
-											<div class="notes__main_block__header fic">
-												<div class="notes__main_block__header__itesm fic">
-													<div class="notes__main_number">Запись №{{ note.pk }}</div>
-													<div class="notes__main_address">{{ note.salon.address }}</div>
-												</div>
-												<div class="notes__main_pay payid">{{ note.payment_status }}</div>
-											</div>
-											<div class="notes__main_block__main ">
-												<div class="notes__main_block__main_items">
-													<div class="notes__main_block__main_elems fic">
-														<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Услуга:</div>
-														<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Цена:</div>
-													</div>
-													<div class="notes__main_block__main_elems fic">
-														<div class="notes__main_block__main_elems__name otes__main_blockWidth">{{ note.service.title }}</div>
-														<div class="notes__main_block__main_elems__price otes__main_blockWidth">{{ note.service.price }} руб</div>
-													</div>
-												</div>
-												<div class="notes__main_block__main_items">
-													<div class="notes__main_block__main_elems fic">
-														<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Мастер:</div>
-														<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Дата и время:</div>
-													</div>
-													<div class="notes__main_block__main_elems fic">
-														<div class="notes__main_block__main_elems__name otes__main_blockWidth">{{ note.master.name }} {{ note.master.surname }}</div>
-														<div class="notes__main_block__main_elems__date otes__main_blockWidth">{{ note.date_time_start }}</div>
-													</div>
-												</div>
-											</div>
-											<hr class="notes__block_hr">
-											<div class="notes__footer fic">
-												<a href="#" class="notes__footer_link rewiewPopupOpen">Оставить отзыв</a>
-												<a href="#" class="notes__footer_link tipsPopupOpen">Чаевые</a>
-												<div class="notes__main_pay payid">{{ note.payment_status }}</div>
-											</div>
-										</div>
+									<hr class="notes__block_hr">
+									<div class="notes__footer fic">
+										<a href="#" class="notes__footer_link rewiewPopupOpen">Оставить отзыв</a>
+										<a href="#" class="notes__footer_link tipsPopupOpen">Чаевые</a>
+										<button class="notes__footer_btn payPopupOpen">Оплатить</button>
+										<div class="notes__main_pay unPaid">{{ note.payment_status }}</div>
 									</div>
 								</div>
+							</div>
 							{% endif %}
-						{% endfor %}
+							{% endfor %}
+						</div>
+						<div class="notes__content notes__content_history">
+							<div class="notes__main_title">ПРОШЕДШИЕ</div>
+							{% for note in client.notes.all %}
+							{% if note.completed_status %}
+							<div class="notes__main_block">
+								<img src="{{ note.service.image.url }}" alt="service1" class="notes__main_block__img">
+								<div class="notes__main_block__elems">
+									<div class="notes__main_block__header fic">
+										<div class="notes__main_block__header__itesm fic">
+											<div class="notes__main_number">Запись №{{ note.id }} в салоне {{ note.salon.title }} ({{ note.salon.address }})</div>
+										</div>
+										{% if note.payment_status  %}
+										<div class="notes__main_pay unPaid" style="color: #1CD44C">Оплачено</div>
+										{% else %}
+										<div class="notes__main_pay unPaid">Не оплачено</div>
+										{% endif %}
+									</div>
+									<div class="notes__main_block__main ">
+										<div class="notes__main_block__main_items">
+											<div class="notes__main_block__main_elems fic">
+												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Услуга:</div>
+												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Цена:</div>
+											</div>
+											<div class="notes__main_block__main_elems fic">
+												<div class="notes__main_block__main_elems__name otes__main_blockWidth">{{ note.service.title }}</div>
+												<div class="notes__main_block__main_elems__price otes__main_blockWidth">{{ note.service.price }} ₽</div>
+											</div>
+										</div>
+										<div class="notes__main_block__main_items">
+											<div class="notes__main_block__main_elems fic">
+												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Мастер:</div>
+												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Дата и время:</div>
+											</div>
+											<div class="notes__main_block__main_elems fic">
+												<div class="notes__main_block__main_elems__name otes__main_blockWidth">{{ note.master.name }} {{ note.master.surname }}</div>
+												<div class="notes__main_block__main_elems__date otes__main_blockWidth">{{ note.date_time_start }}</div>
+											</div>
+										</div>
+									</div>
+									<hr class="notes__block_hr">
+									<div class="notes__footer fic">
+										<a href="#" class="notes__footer_link rewiewPopupOpen">Оставить отзыв</a>
+										<a href="#" class="notes__footer_link tipsPopupOpen">Чаевые</a>
+										<div class="notes__main_pay payid">{{ note.payment_status }}</div>
+									</div>
+								</div>
+							</div>
+							{% endif %}
+							{% endfor %}
+						</div>
 					</div>
 					<div class="col-md-12 col-lg-3 dec">
 						<div class="notes__pay">
 							<button class="notes__pay_btn">Оплатить онлайн</button>
-							<div class="notes__pay_info">Вы можете оплатить услуги прямо сейчас онлайн или расплатиться  в салоне</div>
+							<div class="notes__pay_info">Вы можете оплатить все услуги прямо сейчас онлайн или расплатиться в салоне</div>
 							<div class="notes__pay_intro">Сумма оплаты</div>
-							<div class="notes__pay_sum">3 900 руб</div>
+							<div class="notes__pay_sum">{{ sum_price.price__sum }} ₽</div>
 						</div>
 					</div>
 				</div>
