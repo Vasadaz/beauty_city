@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from django.utils.html import format_html
 
 from .models import (
     Category,
@@ -83,7 +82,6 @@ class MasterAdmin(admin.ModelAdmin):
 class ClientAdmin(admin.ModelAdmin):
     list_display = (
         'name',
-        'surname',
         'phonenumber',
     )
     list_per_page = 20
@@ -111,6 +109,9 @@ class NoteAdmin(admin.ModelAdmin):
         'master',
         'service',
         'date_time_start',
+        'price',
+        'payment_status',
+        'completed_status'
     )
     list_filter = (
         'client',

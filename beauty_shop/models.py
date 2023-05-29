@@ -154,19 +154,13 @@ class Client(models.Model):
         blank=True,
         null=True,
     )
-    surname = models.CharField(
-        verbose_name='Фамилия',
-        max_length=200,
-        blank=True,
-        null=True,
-    )
 
     class Meta:
         verbose_name = 'клиент'
         verbose_name_plural = 'клиенты'
 
     def __str__(self):
-        return f'{self.surname} {self.name}'
+        return f'{self.name}'
 
 
 class Feedback(models.Model):
@@ -242,8 +236,15 @@ class Note(models.Model):
     date_time_end = models.DateTimeField(
         verbose_name='Конец',
     )
-    payment = models.BooleanField(
-        verbose_name='Оплата',
+    payment_status = models.BooleanField(
+        verbose_name='Оплачено',
+        default=False,
+    )
+    price = models.PositiveSmallIntegerField(
+        verbose_name='Стоимость'
+    )
+    completed_status = models.BooleanField(
+        verbose_name='Выполнен',
         default=False,
     )
 
