@@ -145,8 +145,8 @@ class Client(models.Model):
     phonenumber = PhoneNumberField(
         verbose_name='Телефон',
         db_index=True,
-        # region='RU',
-        # unique=True,
+        region='RU',
+        #unique=True,
     )
     name = models.CharField(
         verbose_name='Имя',
@@ -232,8 +232,8 @@ class Note(models.Model):
         verbose_name='Салон',
         related_name='notes',
     )
-    message = models.TextField(
-        verbose_name='Сообщение',
+    comment = models.TextField(
+        verbose_name='Комментарий',
         blank=True,
     )
     date_time_start = models.DateTimeField(
