@@ -77,7 +77,6 @@
 						</select>
 					</div>
 
-
 					<div class="row">
 						<div class="col-md-12">
 							<button class="time__btns_next" type="submit">ПРОВЕРКА</button>
@@ -383,12 +382,13 @@
                 <option value="0">
                     <div class="accordion__block_intro">Любая дата</div>
                 </option>
-
-                <option value="1" >
+                {% for data_key, data_value in dates.items %}
+                <option value="{{ data_key }}" >
                     <div class="accordion__block_elems fic">
-                        <div class="accordion__block_intro">29.05.2023 (Понедельник)</div>
+                        <div class="accordion__block_intro">{{ data_value }}</div>
                     </div>
                 </option>
+                {% endfor %}
             `);
 
             $('#timeSelector').html(`

@@ -1,10 +1,14 @@
+import locale
+from datetime import datetime, timedelta
+from textwrap import dedent
+
 import requests
+
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render
-from textwrap import dedent
-from datetime import datetime  
+
 from .models import (
     Salon,
     Category,
@@ -13,6 +17,11 @@ from .models import (
     Client,
     Feedback,
     Note,
+)
+
+locale.setlocale(
+    category=locale.LC_ALL,
+    locale='',
 )
 
 
@@ -86,9 +95,17 @@ def service(request):
     salons = Salon.objects.all()
     categories = Category.objects.prefetch_related('services')
     masters = Master.objects.all()
+    dates = {}
+
+    for count_day in range(1, 11):
+        future_date = datetime.today() + timedelta(days=count_day)
+        dates[str(future_date.date())] = future_date.strftime('%d %B %Y (%A)')
+
     data = {
         'salons': salons,
         'categories': categories,
+        'masters': masters,
+        'dates': dates
     }
     if request.method == "POST":
         data['form'] = 'Получен POST'
