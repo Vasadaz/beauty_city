@@ -57,29 +57,29 @@ def manager(request):
         return redirect('http://127.0.0.1:8000/admin/login/?next=/manager/')
     all_note = Note.objects.all()
     current_month_visits = all_note.filter(
-            date_time_start__month = datetime.today().month,
-            ) 
+        date_time_start__month=datetime.today().month,
+    )
     visits_per_year = all_note.filter(
-            date_time_start__year = datetime.today().year,
-            payment = True,
-            ).count()
+        date_time_start__year=datetime.today().year,
+        payment=True,
+    ).count()
     monthly_total = sum(
-            [
-                visit.service.price for visit in current_month_visits.filter(
-                    payment = True
-                    )
-                ]
-            )
-    paid_visits = current_month_visits.filter(payment = True).count()
+        [
+            visit.service.price for visit in current_month_visits.filter(
+            payment=True
+        )
+        ]
+    )
+    paid_visits = current_month_visits.filter(payment=True).count()
     all_entries_month = all_note.count()
     visits_percentage = paid_visits * 100 // all_entries_month
     data = {
-            'current_month_visits': paid_visits,
-            'monthly_total': monthly_total,
-            'visits_per_year': visits_per_year,
-            'all_entries_month':all_entries_month,
-            'visits_percentage': visits_percentage,
-            }
+        'current_month_visits': paid_visits,
+        'monthly_total': monthly_total,
+        'visits_per_year': visits_per_year,
+        'all_entries_month': all_entries_month,
+        'visits_percentage': visits_percentage,
+    }
     return render(request, 'manager.html', context=data)
 
 
@@ -95,17 +95,27 @@ def service(request):
     salons = Salon.objects.all()
     categories = Category.objects.prefetch_related('services')
     masters = Master.objects.all()
-    dates = {}
+    master_time_slots = {}
 
-    for count_day in range(1, 11):
-        future_date = datetime.today() + timedelta(days=count_day)
-        dates[str(future_date.date())] = future_date.strftime('%d %B %Y (%A)')
+    for master in masters:
+        time_slots = {}
+
+        for slot in master.time_slots.all():
+            date_at = slot.time_slot_at.strftime('%d %B %Y (%A)')
+            time_at = slot.time_slot_at.strftime('%H:%M')
+
+            if not time_slots.get(date_at):
+                time_slots[date_at] = []
+
+            time_slots[date_at].append(time_at)
+
+        master_time_slots[master.id] = time_slots
 
     data = {
         'salons': salons,
         'categories': categories,
         'masters': masters,
-        'dates': dates
+        'master_time_slots': master_time_slots
     }
     if request.method == "POST":
         data['form'] = 'Получен POST'
