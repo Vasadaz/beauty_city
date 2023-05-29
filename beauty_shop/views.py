@@ -94,11 +94,16 @@ def note(request):
         client_comment = request.POST.get('client_comment', '')
 
         date_time_start = datetime.strptime(request.POST.get('datetime'), '%d %B %Y (%A) %H:%M')
-        print(date_time_start)
+        date_time_end = date_time_start + timedelta(hours=service.duration.hour, minutes=service.duration.minute)
+
+        for slot in master.time_slots.all():
+            if date_time_start - timedelta(hours=1, minutes=30) <= slot.time_slot_at <= date_time_end:
+                slot.delete()
 
         client_obj, created_as = Client.objects.get_or_create(
             phonenumber=client_tel,
         )
+
 
         if created_as:
             client_obj.name = client_name
@@ -113,7 +118,7 @@ def note(request):
             salon=salon,
             comment=client_comment,
             date_time_start=date_time_start,
-            date_time_end=date_time_start,
+            date_time_end=date_time_end,
         )
         note_obj.save()
 
