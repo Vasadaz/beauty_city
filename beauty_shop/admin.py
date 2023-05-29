@@ -125,6 +125,6 @@ class NoteAdmin(admin.ModelAdmin):
 class TimeSlotAdmin(admin.ModelAdmin):
     list_display = (
         'master',
-        'time_slot',
+        'time_slot_at',
     )
     list_per_page = 20

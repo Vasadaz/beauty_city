@@ -263,7 +263,7 @@ class TimeSlot(models.Model):
         verbose_name='Мастер',
         related_name='time_slots',
     )
-    time_slot = models.DateTimeField(
+    time_slot_at = models.DateTimeField(
         verbose_name='Слот',
     )
 
