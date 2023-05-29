@@ -128,4 +128,7 @@ class TimeSlotAdmin(admin.ModelAdmin):
         'master',
         'time_slot_at',
     )
+    list_filter = (
+        'master',
+    )
     list_per_page = 20
