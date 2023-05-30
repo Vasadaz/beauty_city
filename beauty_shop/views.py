@@ -24,7 +24,6 @@ from beauty_shop.models import (
 )
 from project.settings import YOOMANEY_API_KEY, YOOMANEY_SHOP_ID
 
-
 locale.setlocale(
     category=locale.LC_ALL,
     locale='ru_RU.UTF-8',
@@ -90,6 +89,7 @@ def manager(request):
     }
     return render(request, 'manager.html', context=data)
 
+
 def get_payment_url(previous_url: Path, client_id: int, price: str, note_id: int = None, note_ids: list = None) -> str:
     Configuration.account_id = YOOMANEY_SHOP_ID
     Configuration.secret_key = YOOMANEY_API_KEY
@@ -106,8 +106,6 @@ def get_payment_url(previous_url: Path, client_id: int, price: str, note_id: int
     merged_params = urlencode(payload)
     parsed = parsed._replace(query=merged_params)
     return_url = parsed.geturl()
-
-
 
     payment = Payment.create({
         'amount': {
@@ -190,8 +188,8 @@ def notes(request, pk):
             note_ids=note_ids,
         )
     except TypeError:
-        price_sum=0
-        price_sum_url='#'
+        price_sum = 0
+        price_sum_url = '#'
 
     data = {
         'client': client_obj,
@@ -265,6 +263,5 @@ def service_finally(request):
             'date': date,
             'time': time,
         }
-
 
     return render(request, 'service_finally.html', context=data)
