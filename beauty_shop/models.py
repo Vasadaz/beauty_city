@@ -236,12 +236,17 @@ class Note(models.Model):
     date_time_end = models.DateTimeField(
         verbose_name='Конец',
     )
+    price = models.PositiveSmallIntegerField(
+        verbose_name='Стоимость',
+    )
+    payment_url = models.URLField(
+        verbose_name='Ссылка на оплату',
+        blank=True,
+        null=True,
+    )
     payment_status = models.BooleanField(
         verbose_name='Оплачено',
         default=False,
-    )
-    price = models.PositiveSmallIntegerField(
-        verbose_name='Стоимость'
     )
     completed_status = models.BooleanField(
         verbose_name='Выполнен',
