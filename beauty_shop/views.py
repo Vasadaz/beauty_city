@@ -21,7 +21,7 @@ from beauty_shop.models import (
 
 locale.setlocale(
     category=locale.LC_ALL,
-    locale='ru',
+    locale='ru_RU.UTF-8',
 )
 
 
