@@ -59,8 +59,9 @@ def index(request):
 
 def manager(request):
     if not request.user.is_superuser:
-        previous_url = Path(request.META.get('HTTP_REFERER'))
-        new_url = previous_url.parent / 'admin' / 'login'
+        #previous_url = Path(request.META.get('HTTP_REFERER'))
+        #new_url = previous_url.parent / 'admin' / 'login'
+        new_url = Path('https://vasadaz.ru') / 'admin' / 'login'
         payload = {'next': '/manager/'}
         parsed = urlparse(new_url.as_posix())
         merged_params = urlencode(payload)
