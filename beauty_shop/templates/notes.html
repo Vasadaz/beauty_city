@@ -66,6 +66,7 @@
 							<hr class="hr">
 						</div>
 
+                        {% if price_sum  %}
 						<div class="notes__pay mob">
 							<div class="notes__pay_block">
 								<div class="notes__pay_title">Оплата услуг</div>
@@ -75,11 +76,11 @@
 
 							<div class="notes__pay_block">
 								<div class="notes__pay_intro">Сумма оплаты</div>
-								<div class="notes__pay_sum">3 900 руб</div>
-								<button class="notes__pay_btn">Оплатить онлайн</button>
+								<div class="notes__pay_sum">{{ price_sum }} ₽</div>
+                                <a href="{{ price_sum_url }}"><button class="notes__pay_btn">Оплатить онлайн</button></a>
 							</div>
 						</div>
-
+                        {% endif %}
 
 						<div class="notes__content notes__content_upcoming">
 							<div class="notes__main_title">ПРЕДСТОЯЩИЕ</div>
@@ -90,13 +91,18 @@
 								<div class="notes__main_block__elems">
 									<div class="notes__main_block__header fic">
 										<div class="notes__main_block__header__itesm fic">
-											<div class="notes__main_number">Запись №{{ note.id }} в салоне {{ note.salon.title }} ({{ note.salon.address }})</div>
+											<div class="notes__main_number">Запись №{{ note.id }}</div>
 										</div>
 										{% if note.payment_status  %}
 										<div class="notes__main_pay unPaid" style="color: #1CD44C">Оплачено</div>
 										{% else %}
 										<div class="notes__main_pay unPaid">Не оплачено</div>
 										{% endif %}
+									</div>
+                                    <div class="notes__main_block__header fic">
+										<div class="notes__main_block__header__itesm fic">
+											<div class="notes__main_number">{{ note.salon.title }} ({{ note.salon.address }})</div>
+										</div>
 									</div>
 									<div class="notes__main_block__main ">
 										<div class="notes__main_block__main_items">
@@ -124,8 +130,9 @@
 									<div class="notes__footer fic">
 										<a href="#" class="notes__footer_link rewiewPopupOpen">Оставить отзыв</a>
 										<a href="#" class="notes__footer_link tipsPopupOpen">Чаевые</a>
-										<button class="notes__footer_btn payPopupOpen">Оплатить</button>
-										<div class="notes__main_pay unPaid">{{ note.payment_status }}</div>
+                                        {% if not note.payment_status  %}
+                                        <a href="{{ note.payment_url }}"><button class="notes__footer_btn">Оплатить</button></a>
+                                        {% endif %}
 									</div>
 								</div>
 							</div>
@@ -141,13 +148,18 @@
 								<div class="notes__main_block__elems">
 									<div class="notes__main_block__header fic">
 										<div class="notes__main_block__header__itesm fic">
-											<div class="notes__main_number">Запись №{{ note.id }} в салоне {{ note.salon.title }} ({{ note.salon.address }})</div>
+											<div class="notes__main_number">Запись №{{ note.id }}</div>
 										</div>
 										{% if note.payment_status  %}
 										<div class="notes__main_pay unPaid" style="color: #1CD44C">Оплачено</div>
 										{% else %}
 										<div class="notes__main_pay unPaid">Не оплачено</div>
 										{% endif %}
+									</div>
+                                    <div class="notes__main_block__header fic">
+										<div class="notes__main_block__header__itesm fic">
+											<div class="notes__main_number">{{ note.salon.title }} ({{ note.salon.address }})</div>
+										</div>
 									</div>
 									<div class="notes__main_block__main ">
 										<div class="notes__main_block__main_items">
@@ -175,21 +187,22 @@
 									<div class="notes__footer fic">
 										<a href="#" class="notes__footer_link rewiewPopupOpen">Оставить отзыв</a>
 										<a href="#" class="notes__footer_link tipsPopupOpen">Чаевые</a>
-										<div class="notes__main_pay payid">{{ note.payment_status }}</div>
 									</div>
 								</div>
 							</div>
-							{% endif %}
+                            {% endif %}
 							{% endfor %}
 						</div>
 					</div>
 					<div class="col-md-12 col-lg-3 dec">
+                        {% if price_sum  %}
 						<div class="notes__pay">
-							<button class="notes__pay_btn">Оплатить онлайн</button>
+                            <a href="{{ price_sum_url }}"><button class="notes__pay_btn">Оплатить онлайн</button></a>
 							<div class="notes__pay_info">Вы можете оплатить все услуги прямо сейчас онлайн или расплатиться в салоне</div>
 							<div class="notes__pay_intro">Сумма оплаты</div>
-							<div class="notes__pay_sum">{{ sum_price.price__sum }} ₽</div>
+							<div class="notes__pay_sum">{{ price_sum }} ₽</div>
 						</div>
+                        {% endif %}
 					</div>
 				</div>
 			</div>

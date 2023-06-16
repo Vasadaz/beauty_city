@@ -21,12 +21,8 @@
 							{% csrf_token %}
 							<div class="serviceFinally__form_block">
 								<div class="serviceFinally__form_header fic">
-									<span class="serviceFinally__form_header__number">Запись № 10 </span>
-									<div class="serviceFinally__form_header__item fic">
-                                        <input type="hidden" name="salon" value="{{ salon.id }}">
-										<div class="serviceFinally__form_header__service">{{ salon.title }}</div>
-										<div class="serviceFinally__form_header__address">{{ salon.address }}</div>
-									</div>
+                                    <input type="hidden" name="salon" value="{{ salon.id }}">
+									<span class="serviceFinally__form_header__number">Запись в салон {{ salon.title }} {{ salon.address }}</span>
 								</div>
 								<div class="serviceFinally__form_content">
 									<div class="serviceFinally__form_content__block fic">
